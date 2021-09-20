@@ -8,3 +8,10 @@ codealike.json
 *.nuget.g.targets
 project.lock.json
 project.assets.json
+.vs/*
+.vscode/*
+bin/*
+obj/*
+.vscode/
+appsettings.*.json
+appsettings.json
