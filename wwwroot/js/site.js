@@ -9,6 +9,12 @@ $(function() {
     }
 
     $(".search-link").click(() => {
-        alert("yay!");
+        $("main").html(
+            `<div class="spinner-container">
+                <div class="spinner">
+                   <i class="fas fa-jack-o-lantern fa-spin"></i>
+                   <span>Loading...</span>
+                </div>
+            </div>`);
     })
 })

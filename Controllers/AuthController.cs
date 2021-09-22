@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-
-namespace my_first_pr.Controllers
+﻿namespace my_first_pr.Controllers
 {
     [Route("[controller]/[action]")]
     public class AuthController : Controller

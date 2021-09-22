@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Octokit;
-using Octokit.Internal;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace my_first_pr.Pages
 {
@@ -47,7 +39,7 @@ namespace my_first_pr.Pages
 
         public async Task OnPostAsync(string language,string search)
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity is not null && User.Identity.IsAuthenticated)
             {
                 string accessToken = await HttpContext.GetTokenAsync("access_token");
                 var github = new GitHubClient(new ProductHeaderValue("AspNetCoreGitHubAuth"), new InMemoryCredentialStore(new Credentials(accessToken)));
@@ -60,17 +52,22 @@ namespace my_first_pr.Pages
                 {
                     currentSearch.Language = (Octokit.Language)(Int32.Parse(language));
                 }
-                baseIssues = (await github.Search.SearchIssues(HacktoberfestEasyRequest)).Items;
+                else
+                {
+                    currentSearch.Language = null;
+                }
+                baseIssues = (await github.Search.SearchIssues(currentSearch)).Items;
+                currentSearch = null;
                 Issues = (IReadOnlyList<ModIssue>)baseIssues.Select(x => new ModIssue(x)).ToList();
                 foreach (var issue in Issues)
                 {
-                    string response = (string)((await github.Connection.GetRaw( new Uri(issue.Url), null)).HttpResponse.Body);
-                    ModIssue iss  = JsonConvert.DeserializeObject<ModIssue>(response);
+                    string response = (string)((await github.Connection.GetRaw( new Uri(issue.Url), null) ).HttpResponse.Body);
+                    ModIssue iss = JsonConvert.DeserializeObject<ModIssue>(response);
                     issue.RepositoryUrl = iss.RepositoryUrl;
-                    response = (string)(await github.Connection.GetRaw(new Uri(issue.RepositoryUrl), null)).HttpResponse.Body;
+                    response = (string)( await github.Connection.GetRaw( new Uri( issue.RepositoryUrl ), null ) ).HttpResponse.Body;
                     JObject repo = JObject.Parse(response);
                     JObject owner = (JObject)repo["owner"];
-                    var own = new User((string)owner["avatar_url"], null, null, 0, null, default(DateTimeOffset), default(DateTimeOffset), 0, null, 0, 0, null, null, 0, 0, null,(string)owner["login"], null, null, 0, null, 0, 0, 0, null, null, false, null, null);
+                    var own = new User((string)owner["avatar_url"], null, null, 0, null, default(DateTimeOffset), default(DateTimeOffset), 0, null, 0, 0, null, null, 0, 0, null, (string)owner["login"], null, null, 0, null, 0, 0, 0, null, null, false, null, null);
                     issue.Repository = new Repository(null, (string)repo["html_url"], null, null, null, null, null, 0, null, own, null, null, false, null, null, (string)repo["language"], false, false, 0, 0, null, 0, null, default(DateTimeOffset), default(DateTimeOffset), null, null, null, null, false, false, false, false, 0, 0, null, null, null, false, 0, null, default(RepositoryVisibility));
                 }
             }

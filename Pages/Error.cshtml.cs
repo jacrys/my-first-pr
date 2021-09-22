@@ -1,15 +1,12 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Octokit;
 
 namespace my_first_pr.Pages;
+
 
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 [IgnoreAntiforgeryToken]
 public class ErrorModel : PageModel
 {
-
     public Octokit.Language Langs { get; set; }
 
     public string? RequestId { get; set; }
@@ -28,4 +25,3 @@ public class ErrorModel : PageModel
         RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier;
     }
 }
-

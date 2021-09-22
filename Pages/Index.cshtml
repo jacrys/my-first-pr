@@ -32,7 +32,7 @@
                                     <span class="badge issue-status-@issue.State">@issue.State</span>
                                     <span>@Html.Raw(@issue.LanguageIcon)</span>
                                 </div>
-                                <p class="card-text">@issue.Body</p>
+                                <p class="card-text">@issue.Body?.Substring(0,Math.Min(500,@issue.Body.Length)). . .</p>
                                 <p class="card-comments">
                                     <span class="badge rounded-pill bg-primary">
                                         <span class="translate-middle">
@@ -55,10 +55,16 @@
             }
             else
             {
-                <strong class="d-flex justify-content-center text-center">
-                    <span class="w-25">
-                        Please (optionally) select a programming language to filter to, and then select a search from above. It may take a few seconds, be patient please while I work on speeding it up. This was thrown together in about a day, so things are kinda rough around the edges.
-                    </span>
+                <strong class="d-flex justify-content-center text-center w-100">
+                    <div class="empty-results">
+                        @if (HttpContext.Request.Query.Count != 0)
+                        {
+                            <img class="d-inline-block" src="~/img/ClKxKou0cyo.jpg">
+                        }
+                        <span>
+                            Please (optionally) select a programming language to filter to, and then select a search from above. It may take a few seconds, be patient please while I work on speeding it up. This was thrown together in about a day, so things are kinda rough around the edges.
+                        </span>
+                    </div>
                 </strong>
             }
         }

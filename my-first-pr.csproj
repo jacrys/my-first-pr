@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>my_first_pr</RootNamespace>
     <UserSecretsId>e43a6ce8-c7a0-4ff3-80aa-a2c612bc953a</UserSecretsId>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -108,6 +108,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
+  flex-shrink: 1;
+}
+
+nav .flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 .btn-grp.flex-container>a:first-child {
@@ -192,7 +200,7 @@ button.search-link:hover .fa-pumpkin{
 
 .card-text,
 .card-footer {
-  font-size: 0.89rem;
+  font-size: 1rem;
 }
 
 .issue-list {
@@ -276,6 +284,8 @@ button.search-link:hover .fa-pumpkin{
 .fa-bacon {
   color: lightcoral;
 }
+
+.fa-jack-o-lantern,
 .fa-pumpkin {
   color: #e47226;
 }
@@ -283,4 +293,32 @@ button.search-link:hover .fa-pumpkin{
 main {
   margin-top: 8rem;
   margin-bottom: 4rem;
+  width: 100vw;
+}
+
+.spinner-container{
+  position: relative;
+}
+
+.spinner {
+  width: 500px;
+  height: 50px;
+  /* Center vertically and horizontally */
+  position: absolute;
+  top: calc(50vh - 10rem);
+  left: calc(50vw + 8rem);
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+}
+
+.spinner span{
+  margin-left: 0.5rem;
+}
+
+.card-text p img {
+  max-width: 350px;
+}
+
+.empty-results {
+  width: 30rem;
 }
