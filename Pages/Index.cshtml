@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<div class="container-fluid">
     <div class="row">
         @if (!User.Identity.IsAuthenticated)
         {
@@ -69,3 +70,4 @@
             }
         }
     </div>
+</div>
