@@ -31,7 +31,6 @@
                                 </h5>
                                 <div class="d-flex justify-content-between my-2">
                                     <span class="badge issue-status-@issue.State">@issue.State</span>
-                                    <span>@Html.Raw(@issue.LanguageIcon)</span>
                                 </div>
                                 <p class="card-text">@issue.Body?.Substring(0,Math.Min(500,@issue.Body.Length)). . .</p>
                                 <p class="card-comments">
