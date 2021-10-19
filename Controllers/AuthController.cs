@@ -6,6 +6,9 @@
         [HttpGet]
         public IActionResult Login(string returnUrl = "/")
         {
+#if DEBUG
+            Console.WriteLine(returnUrl);
+#endif
             return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
         }
     }
