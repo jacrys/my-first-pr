@@ -17,7 +17,9 @@ builder.Services.AddAuthentication( options => {
     options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = "Github";
 })
-    .AddCookie()
+    .AddCookie(options => {
+        options.Cookie.SameSite = SameSiteMode.Lax;
+    })
     .AddOAuth("Github", options => {
         options.ClientId = builder.Configuration["GitHub:ClientId"] ?? Environment.GetEnvironmentVariable("GITHUB_CLIENT_ID");
         options.ClientSecret = builder.Configuration["GitHub:ClientSecret"] ?? Environment.GetEnvironmentVariable("GITHUB_CLIENT_SECRET");
