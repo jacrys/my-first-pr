@@ -13,9 +13,7 @@
         [HttpGet]
         public IActionResult Login(string returnUrl = "/")
         {
-#if DEBUG
             _logger.LogError(returnUrl);
-#endif
             return Challenge(new AuthenticationProperties() { RedirectUri = returnUrl });
         }
     }
